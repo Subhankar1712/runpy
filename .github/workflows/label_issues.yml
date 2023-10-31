@@ -1,0 +1,26 @@
+name: Label Issues
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Issue Content
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Label Issues
+      run: |
+        python label_issues.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
